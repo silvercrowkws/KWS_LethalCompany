@@ -45,14 +45,25 @@ public class Store : MonoBehaviour
         throw new NotImplementedException();
     }*/
 
-
-
-
     // private Player player;
+
+
+    private Hardware1 hardware1;
 
     private void Start()
     {
-        
+        //Transform child = transform.GetChild(0);                // Store의 0번째 자식
+        //Collider collider = child.GetComponent<Collider>();     // 0번째 자식의 콜라이더
+        Collider collider = GetComponent<Collider>();
+
+        hardware1 = FindObjectOfType<Hardware1>();
+
+        // Hardware1 스크립트를 찾지 못했을 경우 오류 메시지 출력
+        if (hardware1 == null)
+        {
+            Debug.LogError("Hardware1 스크립트를 찾을 수 없습니다!");
+            return;
+        }
     }
 
     private void OnEnable()
@@ -83,6 +94,27 @@ public class Store : MonoBehaviour
             player.FAction.performed -= OnFKeyPressed;
         }*/
     }
+        
+    private void OnCollisionEnter(Collision collision)
+    {
+        // 충돌한 상대방 오브젝트가 있는지 확인
+        if (collision.gameObject != null)
+        {
+            // 충돌한 상대방 오브젝트가 Hardware인지 확인
+            // 나중에는 Hardware의 태그를 폐철물 종류마다 늘려서?
+            if (collision.gameObject.CompareTag("Hardware"))
+            {
+                Debug.Log("Hardware를 발견했습니다!");
 
+                // Hardware1 스크립트에서 가격을 가져와서 출력
+                float price = hardware1.hardwarePrice;
+                Debug.Log("무작위 가격: " + price);
+            }
+            else
+            {
+                Debug.Log("Hardware가 아닌 오브젝트를 발견했습니다!");
+            }
+        }
+    }
 
 }

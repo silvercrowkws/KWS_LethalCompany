@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hardware1 : HardwareBase
+public class Hardware2 : HardwareBase
 {
     protected override void HardwareWeight()
     {
